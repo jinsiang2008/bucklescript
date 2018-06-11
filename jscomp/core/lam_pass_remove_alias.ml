@@ -91,8 +91,8 @@ let simplify_alias
     | Lglobal_module _ -> lam 
     | Lprim {primitive; args; loc } 
       -> Lam.prim ~primitive ~args:(Ext_list.map simpl  args) loc
-      
-    | Lifthenelse(Lvar id as l1, l2, l3) 
+    | Lifthenelse(Lvar id as l1,  l2, l3)       
+    | Lifthenelse(Lprim {primitive = Pis_none_general; args =  [Lvar id as l1]}, l2, l3) 
       -> 
       begin match Ident_hashtbl.find_opt meta.ident_tbl id with 
       | Some (ImmutableBlock ( _, Normal))

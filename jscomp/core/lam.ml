@@ -210,7 +210,7 @@ type primitive =
 
   (* | Pcreate_exception of string  *)
   | Pcreate_extension of string
-
+  | Pis_none_general (* no info about its type *)
 type apply_status =
   | App_na
   | App_ml_full
@@ -1852,6 +1852,8 @@ let convert exports lam : _ * _  =
   and convert_js_primitive (p: Primitive.description) (args : Lambda.lambda list) loc =
     let s = p.prim_name in
     match () with
+    | _ when s = "#is_none" -> 
+        prim ~primitive:Pis_none_general ~args:(Ext_list.map convert_aux args) loc 
     | _ when s = "#raw_expr" ->
       begin match args with
         | [Lconst( Const_base (Const_string(s,_)))] ->

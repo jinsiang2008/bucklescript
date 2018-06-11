@@ -49,6 +49,11 @@ let translate  loc
   (* | Pcreate_exception s  *)
   (*   ->  *)
   (*   Js_of_lam_exception.make_exception (E.str s) *)
+  | Pis_none_general -> 
+    begin match args with 
+    | [arg] -> arg 
+    | _ -> assert false
+    end 
   | Pcreate_extension s 
     -> 
     Js_of_lam_exception.make (E.str s)

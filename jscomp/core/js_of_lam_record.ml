@@ -43,6 +43,7 @@ let empty_record_info = Lambda.Blk_record [||] (* careful to share*)
 
 let field field_info  e i =
   match field_info with 
+  | Lambda.Fld_val_from_option
   | Lambda.Fld_na -> 
     E.index e i 
   | Lambda.Fld_record s 

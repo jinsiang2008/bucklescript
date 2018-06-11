@@ -42,6 +42,7 @@ let jsop_of_comp (cmp : Lambda.comparison) : Js_op.binop =
 
 let comment_of_tag_info  (x : Lambda.tag_info) = 
   match x with 
+  | Blk_some -> Some "Some"
   | Blk_constructor (n, _) -> Some n 
   | Blk_tuple -> Some "tuple"
   | Blk_variant x -> Some ("`" ^  x)
@@ -54,6 +55,7 @@ let comment_of_tag_info  (x : Lambda.tag_info) =
   | Blk_exception -> Some "exception"
   | Blk_extension -> Some "extension"
   | Blk_na -> None 
+  
 let comment_of_pointer_info (x :  Lam.pointer_info)= 
   match x with 
   | Pt_constructor x -> Some x 

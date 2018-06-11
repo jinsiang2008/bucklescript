@@ -88,6 +88,7 @@ let rec no_side_effects (lam : Lam.t) : bool =
       (* | Pcreate_exception _ *)
       | Pjs_typeof
       | Pis_null
+      | Pis_none_general
       | Pis_undefined
       | Pis_null_undefined
       | Pnull_to_opt       
@@ -362,7 +363,7 @@ let destruct_pattern (body : Lam.t) params args =
       | Some _ | None -> false
     end        
   | Lifthenelse(Lvar v, then_, else_)
-    ->
+    -> (* FIXME *)
     begin match aux v params args with
       | Some (Lconst _ as lam) ->
         size (Lam.if_ lam then_ else_) < small_inline_size
@@ -534,6 +535,7 @@ and eq_primitive ( lhs : Lam.primitive) (rhs : Lam.primitive) =
   | Pnull_to_opt -> rhs = Pnull_to_opt
   | Pnull_undefined_to_opt -> rhs = Pnull_undefined_to_opt  
   | Pis_null -> rhs = Pis_null
+  | Pis_none_general -> rhs = Pis_none_general 
   | Pis_undefined -> rhs = Pis_undefined
   | Pis_null_undefined -> rhs = Pis_null_undefined
   | Pjs_typeof -> rhs = Pjs_typeof

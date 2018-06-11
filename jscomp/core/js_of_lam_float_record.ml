@@ -31,6 +31,7 @@ module E = Js_exp_make
 
 let get_double_feild field_info e i = 
   match field_info with 
+  | Lambda.Fld_val_from_option
   | Lambda.Fld_na -> 
     E.index e i 
   | Lambda.Fld_record s 
